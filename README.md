@@ -1,284 +1,204 @@
-# Nossas Lojas v3.0
+# Nossas Lojas V3
 
-Programa que guarda informações de lojas físicas de um e-commerce e de seus clientes. Guarda informações como id das lojas, nome, endereço, telefone/celular, CNPJ, horário de trabalho, cidade onde se localiza e estado e do cliente guarda informações como id do cliente, nome, CPF, RG, gênero, telefone para contato, endereço, local de trabalho e loja de compra. 
+API de exercício em **Node.js, TypeScript, Express e MySQL** para gerenciar lojas físicas de um e-commerce e seus clientes. Esta versão usa entidades e relações com TypeORM.
 
-# Objetivo do Projeto
-O objetivo do projeto é criar uma api em NodeJS atendendo a todos os requisitos nesse [link](https://github.com/myreli/c_trilhas/blob/master/microservices_node/desafio2/README.md). A criação foi feita com os conhecimentos adquiridos nesta [trilha de conhecimento](https://github.com/myreli/c_trilhas/blob/master/microservices_node/README.md).
+[![TypeScript](https://img.shields.io/badge/TypeScript-project-3178C6)](https://www.typescriptlang.org/docs/)
+[![License](https://img.shields.io/badge/License-MIT-blue)](LICENSE)
 
-# Ferramentas Utilizadas
+## 📋 Table of contents
 
- Foi usado o Node.js como principal compilador, e as principais biblotecas utilizadas foram express, body-parse, consign, nodemon, express-validator..., que podem ser baixadas atrasvés do comando ```npm install``` no terminal da pasta. 
- Desenvolvido no windows 7, mas quando executado apartir do docker é executado em linux. E como banco de dados foi usado o MySQL para armazenamento dos dados.
- 
- 
- 
- # Como baixar e executar
- 
- Primeiramente você deve ter o node.js e o banco de dados MYSQL.
- Após clonar o [repositório](https://github.com/paulodaluz/Micro-Servicos-para-Clientes.git), você deve abrir a pasta no terminal e executar o comando "npm install" para instalar todos os pacotes(bibliotecas) usadas  na produção da aplicação.
- Para a aplicação poder funcionar é necessario configurar o banco de dados, e para isso precisamos configurar o arquivoormconfig.json , pois é ele quem faz a comunicação com o Banco de Dados.
- 
- 
- ## Como Utilizar
- 
-  Para testar, fazer consultas você deverá utilizar o app ```Postman```.
- Antes de fazer os testes a seguir você deverá executar o seguinte processo:
+- [✨ Features](#features)
+- [🧪 Technologies](#technologies)
+- [🛠️ Environment setup](#environment-setup)
+- [🚀 Getting started](#getting-started)
+- [🐋 Getting started with Docker](#getting-started-with-docker)
+- [🔌 API usage](#api-usage)
+- [🗂️ Project structure](#project-structure)
+- [✅ Testing and quality](#testing-and-quality)
+- [🔎 Troubleshooting](#troubleshooting)
+- [🤝 Contributing](#contributing)
+- [📜 License](#license)
 
- - Entrar na pasta do projeto no terminal;
- - Botar para rodar a aplicação com o comando ```npm start```.
- - É recomendado tambem estár com o MySQL aberto para poder ver as alterações no banco de dados.
- 
- 
- # Loja
- ### Cria Loja
-  
- Para criar uma nova loja e cadastra-la, você deverá selecionar o método ```POST``` no ```Postman``` e deverá:
- 
- - Inserir a URL: http://localhost:3000/criaLoja;
- - Na aba Headers você deverá usar ```Content-Type```;
- - Na aba ```Body``` deverá selecionar o modo ```raw``` e selecionar o ```JSON(application/json)```;
- - E no campo abaixo você irá inserir os dados da loja, passando-os como no exemplo:
- ```
- {
-    "nome_loja": "Loja A",
-    "endereco": "Rua Abc, 000",
-    "celular": "00 0000 0000",
-    "cnpj": "00.000.000/0000-00",
-    "horarioDeTrabalho": "Diariamente das 11hs às 23hs",
-    "cidade": "Cidade ABC",
-    "estado": "A"
-}
- ```
- Após isso, você irá notar que foi acrescentado em seu banco de dados, na tabela as informações e irá retornar que a tabela foi criada em seu console!
- 
- 
- ### Edita Loja
- 
- Para editar uma loja, você deverá selecionar o método ```PUT``` no ```Postman``` e deverá:
- - Inserir a URL: http://localhost:3000/editaLoja/{id} passando o ```ID``` da loja que deseja editar no lugar de ```{id}```;
- - Na aba Headers você deverá usar ```Content-Type```;
- - Na aba ```Body``` deverá selecionar o modo ```raw``` e selecionar o ```JSON(application/json)```;
- - E no campo abaixo você irá inserir os NOVOS dados da loja, passando-os como no exemplo:
-  ```
- {
-    "nome_loja": "Loja B",
-    "endereco": "Rua Cba, 001",
-    "celular": "11 1111 1111",
-    "cnpj": "00.000.000/0000-01",
-    "horarioDeTrabalho": "Diariamente das 14hs às 22hs",
-    "cidade": "Cidade ABC",
-    "estado": "A"
-}
- ```
- 
- Assim que você atualizar seu banco de dados ira ver que sua tabela foi atualizada com sucesso!
+<a id="features"></a>
 
- ### Deleta Loja
- Para deletar uma loja, você irá selecionar o método ```DELETE``` no ```Postman``` e deverá:
- - Inserir a URL: http://localhost:3000/deletaLoja/{id} passando o ```ID``` da loja que deseja deletar no lugar de ```{id}```;
- - Na aba Headers você deverá usar ```Content-Type```.
- 
- Após a atualização da tabela você irá notar que foi deletada a loja com o ```ID``` correspondente ao que foi passado.
- 
- 
- ### Busca por ID
- Para buscar uma loja pelo ```ID```, você deverá selecionar o método ```GET``` no ```Postman``` e deverá:
- - Inserir a URL: http://localhost:3000/buscaId/{id} passando o ```ID``` da loja que deseja buscar no lugar de ```{id}```;
- - Na aba Headers você deverá usar ```Content-Type```.
- 
- E você irá perceber que retornou no Body as informações da loja cujo o ```ID``` correspondente ao que foi passado.
- 
- 
- ### Busca por Estado
- Para buscar uma loja pelo ```estado```, você deverá selecionar o método ```GET``` no ```Postman``` e deverá:
- - Inserir a URL: http://localhost:3000/buscaEstado/{estado} passando o ```Estado``` da loja que deseja buscar, no lugar de ```{estado}```.
- - Na aba Headers você deverá usar ```Content-Type```;
- 
- E você irá perceber que retornou no Body as informações da loja cujo o ```Estado``` correspondente ao que foi passado.
- 
- 
- ### Busca por Estado e Cidades
- Para buscar uma loja pelo ```estado``` e ```cidade```, você deverá selecionar o método ```PUT``` no ```Postman``` e deverá: 
- - Inserir a URL: http://localhost:3000/buscaPorCidades/{estado} passando o ```Estado``` da loja que deseja pesquisar no lugar de ```{estado}```;
- - Na aba Headers você deverá usar ```Content-Type```;
- - Na aba ```Body``` deverá selecionar o modo ```raw``` e selecionar o ```JSON(application/json)```;
- - E no campo abaixo você irá inserir as cidades de uma loja que deseja buscar, passando-os como no exemplo:
-  
-  ```
-  {
-"cidades" : [
-"BRASIL", "Passo Fundo", "Carazinho", "Marau", "America"
-]
-}
-  ```
-E você irá perceber que retornou no Body as informações da(s) loja(s) cujo o ```Estado``` e a(s) ```Cidades``` correspondentes ao que foi passado.
-  
-  
- ### Listar Todas as Lojas:
- Para listar todas as lojas, você deverá selecionar o método ```GET``` no ```Postman``` e deverá:
-  - Inserir a URL: http://localhost:3000/listaLojas .
-   
-E você irá perceber que retornou no Body todas as lojas cadastradas no banco de dados.
-   
-   
-  Caso queira ver minha ```Collection``` no ```Postman``` é só clicar [aqui](https://www.getpostman.com/collections/23eb7722c81005614987).
- 
- 
- 
- 
- 
- 
- # Cliente
- ### Cria Cliente
-  
- Para criar um novo cliente e cadastra-lo, você deverá selecionar o método ```POST``` no ```Postman``` e deverá:
- 
- - Inserir a URL: http://localhost:3000/criaCliente;
- - Na aba Headers você deverá usar ```Content-Type```;
- - Na aba ```Body``` deverá selecionar o modo ```raw``` e selecionar o ```JSON(application/json)```;
- - E no campo abaixo você irá inserir os dados do cliente, passando-os como no exemplo:
- ```
+## ✨ Features
+
+- Cadastro, atualização, exclusão e consulta de lojas físicas e clientes.
+- Associação de clientes às lojas por TypeORM.
+- Consultas por estado/cidades, nome, CPF, RG, gênero e local de trabalho.
+- Interface Swagger em `/api-docs`.
+
+Atividade baseada na [trilha de microsserviços Node.js](https://github.com/myreli/c_trilhas/blob/master/microservices_node/README.md) e no [desafio de clientes e lojas](https://github.com/myreli/c_trilhas/blob/master/microservices_node/desafio2/README.md).
+
+<a id="technologies"></a>
+
+## 🧪 Technologies
+
+| Tecnologia | Versão declarada | Finalidade |
+| --- | --- | --- |
+| [Node.js](https://nodejs.org/) | Não definida no projeto | Runtime |
+| [TypeScript](https://www.typescriptlang.org/docs/) | `^2.8.1` | Compilação para `js/` |
+| [Express](https://expressjs.com/) | `^4.16.3` | Rotas HTTP |
+| [TypeORM](https://typeorm.io/) | `^0.2.0` | Conexão MySQL |
+| [MySQL driver](https://github.com/mysqljs/mysql) | `^2.15.0` | Acesso ao banco |
+| [express-validator](https://express-validator.github.io/docs/) | `^5.3.1` | Validação das requisições |
+
+As versões são faixas do manifesto, não versões resolvidas. Não há lockfile nem versão de Node em `engines`. Node **14.16.0** foi escolhido para a tentativa de reprodução do projeto legado; essa escolha não garante compatibilidade de dependências transitivas atuais. Atualizações de runtime/dependências exigem validação separada.
+
+<a id="environment-setup"></a>
+
+## 🛠️ Environment setup
+
+Use Git, [nvm](https://github.com/nvm-sh/nvm) e Node.js **14.16.0**. Os comandos abaixo usam npm, fornecido com o Node.js. Não há lockfile versionado; use `npm install`, e não `npm ci`. A resolução das faixas de versão pode variar entre instalações.
+
+```bash
+nvm install 14.16.0
+nvm use 14.16.0
+git clone https://github.com/paulodaluz/NossasLojasV3.git
+cd NossasLojasV3
+npm install
+```
+
+### MySQL
+
+Antes da execução, disponibilize uma instância MySQL própria e uma base vazia. Ajuste `ormconfig.json` com os dados locais:
+
+```json
 {
-    "nome": "Cliente A",
-    "cpf": "000.000.000-00",
-    "rg": "000000000",
-    "genero": "M",
-    "celular": "54999125367",
-    "endereco": "Centro, Rua Moron 2800",
-    "localDeTrabalho": "Renner",
-    "lojaId": "1"
+  "type": "mysql",
+  "host": "127.0.0.1",
+  "port": 3306,
+  "username": "usuario_exemplo",
+  "password": "senha_ficticia",
+  "database": "ecommerce",
+  "synchronize": true,
+  "entities": ["js/entity/*.js"],
+  "subscribers": ["js/subscriber/*.js"],
+  "migrations": ["js/migration/*.js"],
+  "cli": {
+    "entitiesDir": "js/entity",
+    "migrationsDir": "js/migration",
+    "subscribersDir": "js/subscriber"
+  }
 }
- ```
- Em loja ID deverá passar o ID de uma loja cadastrada no banco de dados. 
- Após isso, você irá notar que foi acrescentado em seu banco de dados, na tabela as informações e irá retornar que a tabela foi criada em seu console!
- 
- 
- 
- ### Edita Cliente
- 
- Para editar um cliente, você deverá selecionar o método ```PUT``` no ```Postman``` e deverá:
- - Inserir a URL: http://localhost:3000/editaCliente/{id} passando o ```ID``` do cliente que deseja editar no lugar de ```{id}```;
- - Na aba Headers você deverá usar ```Content-Type```;
- - Na aba ```Body``` deverá selecionar o modo ```raw``` e selecionar o ```JSON(application/json)```;
- - E no campo abaixo você irá inserir os NOVOS dados do cliente, passando-os como no exemplo:
-  ```
-{
-    "nome": "Cliente A",
-    "cpf": "111.111.111-11",
-    "rg": "111111111",
-    "genero": "F",
-    "celular": "54999125362",
-    "endereco": "Centro, Rua Moron 2850",
-    "localDeTrabalho": "Renner",
-    "lojaId": "1"
-}
- ```
- 
- Assim que você atualizar seu banco de dados, ira ver que sua tabela foi atualizada com sucesso!
+```
 
+Os valores acima são exemplos; não publique credenciais. `synchronize: true` permite ao TypeORM alterar o esquema: use uma base de desenvolvimento. O projeto não lê esse arquivo a partir de variáveis `.env`. O servidor só abre a porta após `createConnection()` concluir. Não há `prepare` ou hooks de Git configurados.
 
+<a id="getting-started"></a>
 
- ### Deleta Cliente
- 
- Para deletar um cliente, você irá selecionar o método ```DELETE``` no ```Postman``` e deverá:
- - Inserir a URL: http://localhost:3000/deletaCliente/{id} passando o ```ID``` do cliente que deseja deletar no lugar de ```{id}```;
- - Na aba Headers você deverá usar ```Content-Type```.
- 
- Após a atualização da tabela no banco de dados você irá notar que foi deletado o cliente com o ```ID``` correspondente ao que foi passado.
- 
- 
- 
- ### Busca por ID do Cliente
- 
- Para buscar um cliente pelo ```ID```, você deverá selecionar o método ```GET``` no ```Postman``` e deverá:
- - Inserir a URL: http://localhost:3000/buscaPorIdC/{id} passando o ```ID``` do cliente que deseja buscar no lugar de ```{id}```;
- - Na aba Headers você deverá usar ```Content-Type```.
- 
- E você irá perceber que retornou no Body as informações do cliente cujo o ```ID``` correspondente ao que foi passado.
- 
- 
- 
- ### Busca por Nomes dos Clientes
- 
- Para buscar uma cliente pelo ```nome```, você deverá selecionar o método ```POST``` no ```Postman``` e deverá:
- - Inserir a URL: http://localhost:3000/buscaPorNome.
- - Na aba Headers você deverá usar ```Content-Type```;
- - Na aba ```Body``` deverá selecionar o modo ```raw``` e selecionar o ```JSON(application/json)```;
- - E no campo abaixo você irá inserir os nomes dos clientes desejados, passando-os como no exemplo:
- 
-  ``` 
-  {
-"nome" : [
-"Paulo", "Luan", "Lucas", "Cliente A", "Cliente B"
-]
-}
-  ```
- 
- E você irá perceber que retornou no Body as informações do cliente cujo o(s) ```Nome(s)``` correspondente ao que foi passado.
- 
- 
- 
- ### Busca por CPF do Cliente
- 
- Para buscar uma loja pelo ```CPF```, você deverá selecionar o método ```GET``` no ```Postman``` e deverá:
- - Inserir a URL: http://localhost:3000/buscaPorCPF/{cpf} passando o ```CPF``` do cliente que deseja buscar no lugar de ```{cpf}```;
- - Na aba Headers você deverá usar ```Content-Type```;
-  
-E você irá perceber que retornou no Body as informações do cliente cujo o ```CPF``` correspondente ao que foi passado.
- 
-  
-  
- ### Busca por RG do Cliente
-   
- Para buscar um cliente pelo ```RG```, você deverá selecionar o método ```GET``` no ```Postman``` e deverá:
- - Inserir a URL: http://localhost:3000/buscaPorRG/{rg} passando o ```RG``` do cliente que deseja buscar no lugar de ```{rg}```;
- - Na aba Headers você deverá usar ```Content-Type```;
-  
-E você irá perceber que retornou no Body as informações do cliente cujo o ```RG``` correspondente ao que foi passado.
+## 🚀 Getting started
 
+```bash
+./node_modules/.bin/tsc
+npm start
+```
 
+`npm start` executa `tsc -w` e `nodemon js/index.js` em paralelo. A porta fixa é **3000** e não há variável `PORT`. Com o banco acessível, abra `http://localhost:3000/api-docs`; `/` redireciona para a documentação.
 
- ### Busca por Gênero do Cliente
- 
- Para buscar um cliente pelo ```Gênero```, você deverá selecionar o método ```GET``` no ```Postman``` e deverá:
- - Inserir a URL: http://localhost:3000/buscaPorGenero/{genero} passando o ```GÊNERO "F" ou "M"``` do cliente que deseja buscar no lugar de ```{gênero}```;
- - Na aba Headers você deverá usar ```Content-Type```;
-  
-E você irá perceber que retornou no Body as informações do cliente cujo o ```Gênero``` correspondente ao que foi passado.
-  
-  
-  
- ### Busca por Lojas em que os Clientes trabalham
- 
- Para buscar um cliente pelo ```Local de Trabalho```, você deverá selecionar o método ```POST``` no ```Postman``` e deverá:
- - Inserir a URL: http://localhost:3000/buscaPorTrabalho.
- - Na aba Headers você deverá usar ```Content-Type```;
- - Na aba ```Body``` deverá selecionar o modo ```raw``` e selecionar o ```JSON(application/json)```;
- - E no campo abaixo você irá inserir os nomes dos clientes desejados, passando-os como no exemplo:
- 
-  ``` 
-{
-"localDeTrabalho" : [
-"Renner", "Loja A", "Loja B"
-]
-}
- ``` 
- E você irá perceber que retornou no Body as informações da(s) loja(s) cujo o(s) ```Local de trabalho(s)``` correspondente ao que foi passado.
- 
- 
- 
- ### Listar Todos os Clientes:
- 
- Para listar todas os clientes, você deverá selecionar o método ```GET``` no ```Postman``` e deverá:
-  - Inserir a URL: http://localhost:3000/listaClientes.
-   
-E você irá perceber que retornou no Body todas os clientes cadastradas no banco de dados.
-   
-   
-  Caso queira ver minha ```Collection``` no ```Postman``` de Clientes é só clicar [aqui](https://www.getpostman.com/collections/ada10d13782025ad804a).
-  
-  ## ###Complemento
-  - Clicando [aqui](https://cloud.docker.com/u/paulera25/repository/docker/paulera25/ecommerceclientes), você poderá ver a imagem do NodeJs no DockerHub sendo executada no servidor.
-  - Caso queria ver a documentação deste projeto em uma API no Swagger, basta apenas estar com o servidor rodando e entrar no endereço http://localhost:3000 que você será redirecionado para a documentação ou basta apenas baixa-lá de meu [GitHub](https://github.com/paulodaluz/Micro-Servicos-para-Clientes.git) dentro da pasta ```Documentacao``` e importa-lo no site do [Swagger](https://editor.swagger.io/).
-  
- 
+```bash
+curl http://localhost:3000/listaLojas
+```
+
+Esse comando depende da conexão e das tabelas do MySQL; não há rota de saúde independente do banco.
+
+<a id="getting-started-with-docker"></a>
+
+## 🐋 Getting started with Docker
+
+O arquivo existente é [nodes.dockerfile](nodes.dockerfile), com contexto na raiz, imagem `node:latest`, diretório `/var/www`, `npm install`, `npm start` e porta exposta `3000`. Não há Compose, volumes ou serviço MySQL definidos.
+
+```bash
+docker build -f nodes.dockerfile -t nossas-lojas-v3 .
+docker run --rm --name nossas-lojas-v3 -p 3000:3000 nossas-lojas-v3
+```
+
+Configure um host MySQL alcançável pelo container em `ormconfig.json` antes do build: `localhost` dentro dele não é o banco do host. O `COPY .` inclui a configuração; não distribua imagens contendo credenciais. O Dockerfile desativa a validação TLS do npm e não fixa a versão do Node, divergindo da reprodução local. A revisão desses pontos é uma pendência; nenhum arquivo Docker foi modificado. **Comandos documentados por inspeção, sem validação por execução nesta tarefa.**
+
+<a id="api-usage"></a>
+
+## 🔌 API usage
+
+Não há middleware de autenticação nas rotas. Caminhos abaixo correspondem a `src/rotas/`, que prevalece sobre exemplos antigos.
+
+| Método | Caminho | Função |
+| --- | --- | --- |
+| POST | `/criaLoja` | Cadastrar loja |
+| PUT | `/editaLoja/:id` | Atualizar loja |
+| DELETE | `/deletaLoja/:id` | Excluir loja |
+| GET | `/buscaPorIdL/:id` | Consultar loja |
+| GET | `/buscaPorEstado/:estado` | Filtrar lojas |
+| POST | `/buscaPorCidades/:estado` | Filtrar por cidades no corpo |
+| GET | `/listaLojas` | Listar lojas |
+| POST | `/criaCliente` | Cadastrar cliente |
+| PUT | `/editaCliente/:id` | Atualizar cliente |
+| DELETE | `/deletaCliente/:id` | Excluir cliente |
+| GET | `/buscaPorIdC/:id` | Consultar cliente |
+| POST | `/buscaPorNome` | Filtrar nomes no corpo |
+| GET | `/buscaPorCPF/:cpf` | Filtrar CPF |
+| GET | `/buscaPorRG/:rg` | Filtrar RG |
+| GET | `/buscaPorGenero/:genero` | Filtrar gênero |
+| POST | `/buscaPorTrabalho` | Filtrar local de trabalho |
+| GET | `/listaClientes` | Listar clientes |
+
+Exemplo com dados fictícios em uma base de desenvolvimento:
+
+```bash
+curl -X POST http://localhost:3000/criaLoja \
+  -H 'Content-Type: application/json' \
+  -d '{"nome_loja":"Loja Exemplo","endereco":"Rua Exemplo, 1","celular":"00000000000","cnpj":"00000000000000","horarioDeTrabalho":"09h às 18h","cidade":"Cidade Exemplo","estado":"EX"}'
+```
+
+A criação de cliente recebe `nome`, `cpf`, `rg`, `genero`, `celular`, `endereco`, `localDeTrabalho` e `lojaId`; utilize o ID de uma loja existente. Consulte as validações em `src/models/`.
+
+A definição servida é [Documentacao/swagger.json](Documentacao/swagger.json). Também existem [swaggerCliente.json](Documentacao/swaggerCliente.json), [swaggerLoja.json](Documentacao/swaggerLoja.json) e [links históricos do Postman](Links%20do%20Postman.txt); confira caminhos e métodos no código antes de usá-los.
+
+<a id="project-structure"></a>
+
+## 🗂️ Project structure
+
+| Caminho | Responsabilidade |
+| --- | --- |
+| `src/index.ts` | Conexão, middleware, Swagger e servidor |
+| `src/rotas/` | Registro de rotas de lojas e clientes |
+| `src/controller/` | Operações HTTP e persistência |
+| `src/entity/` | Entidades `ListaLojas` e `Clientes` |
+| `src/models/` | Validações e mensagens |
+| `src/services/` | Serviço de clientes |
+| `Documentacao/` | Definições Swagger |
+| `ormconfig.json` | MySQL e descoberta de entidades compiladas |
+
+<a id="testing-and-quality"></a>
+
+## ✅ Testing and quality
+
+Não existem scripts de testes, lint ou build. Use `./node_modules/.bin/tsc` para verificar a compilação; `npm run watch` acompanha alterações e `npm run server` inicia o JavaScript gerado. O watcher pode permanecer aberto mesmo quando há erros de compilação.
+
+### Validation recorded
+
+Em 11/11/2026, a instalação com Node 14.16.0/npm 6.14.11 concluiu. A compilação retornou código 2 por incompatibilidades nos tipos resolvidos em `@types/express-serve-static-core`. O JavaScript emitido foi iniciado, mas a conexão MySQL em `127.0.0.1:3306` retornou `ECONNREFUSED`; o servidor HTTP não abriu. As operações da API não foram verificadas. Nenhum serviço MySQL foi instalado.
+
+<a id="troubleshooting"></a>
+
+## 🔎 Troubleshooting
+
+- Servidor não abre a porta: a conexão MySQL precisa concluir primeiro.
+- Erros em arquivos de tipos: TypeScript 2.x e dependências sem lockfile podem divergir; a correção de versões fica para revisão.
+- Rota antiga retorna `404`: use `/buscaPorIdL/:id`, `/buscaPorEstado/:estado` e método POST em `/buscaPorCidades/:estado`.
+- Em container, banco inacessível em `localhost`: configure o endereço correto para a rede utilizada; o repositório não fornece MySQL via Docker.
+
+<a id="contributing"></a>
+
+## 🤝 Contributing
+
+Crie uma branch a partir de `master`, valide compilação e fluxos em MySQL de desenvolvimento e abra um PR com o resultado. Preserve dados fictícios nos exemplos e mantenha Swagger alinhado às rotas.
+
+<a id="license"></a>
+
+## 📜 License
+
+Distribuído sob a licença **MIT**, preservada em [LICENSE](LICENSE). O manifesto mantém referências ao exemplo TypeORM de origem.
+
+---
+
+<p align="center">Made with 💜 by <a href="https://github.com/paulodaluz">Paulo da Luz</a></p>
